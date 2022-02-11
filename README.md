@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Create Social Network Project with CRA
+=======
+# Create Social Network with CRA
+>>>>>>> 2ad6148e4e9322e4c62215ae05fcbd58fd036c55
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
