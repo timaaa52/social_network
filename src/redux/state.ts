@@ -16,8 +16,10 @@ export type PostDataType = {
     likesCount: number
 }
 
-type ProfilePageType = {
+export type ProfilePageType = {
     postData: Array<PostDataType>
+    postText: string
+
 }
 
 export type MessagesPageType = {
@@ -38,6 +40,7 @@ export type StateType = {
             {id: v1(), title: 'Hello my friends', likesCount: 0},
             {id: v1(), title: 'Hello my friends', likesCount: 10},
         ],
+        postText: '',
     },
     messagesPage: {
         messagesData: [
@@ -54,7 +57,7 @@ export type StateType = {
             {id: v1(), name: 'Vitya'},
             {id: v1(), name: 'Katya'},
         ],
-    }
+    },
 }
 
 export let addPost = (message: string | undefined) => {
@@ -64,8 +67,17 @@ export let addPost = (message: string | undefined) => {
         likesCount: 0
     }
     state.profilePage.postData.push(newPost)
-    rerenderEntireTree(state, addPost);
+    state.profilePage.postText = '';
+    rerenderEntireTree(state);
 }
+
+export let newPostText = (value: string) => {
+    state.profilePage.postText = value;
+    rerenderEntireTree(state);
+}
+
+//@ts-ignore
+window.state = state;
 
 export default state;
 
