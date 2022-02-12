@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {rerenderEntireTree} from "../render";
 
 type MessagesDataType = {
     text: string
@@ -60,6 +59,10 @@ export type StateType = {
     },
 }
 
+let rerenderEntireTree = () => {
+    console.log('render');
+}
+
 export let addPost = (message: string | undefined) => {
     let newPost = {
         id: v1(),
@@ -68,12 +71,16 @@ export let addPost = (message: string | undefined) => {
     }
     state.profilePage.postData.push(newPost)
     state.profilePage.postText = '';
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
 
 export let newPostText = (value: string) => {
     state.profilePage.postText = value;
-    rerenderEntireTree(state);
+    rerenderEntireTree();
+}
+
+export const subscriber = (observer: () => void) => {
+    rerenderEntireTree = observer;
 }
 
 //@ts-ignore
