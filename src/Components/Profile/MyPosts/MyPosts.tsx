@@ -1,13 +1,12 @@
 import s from './MyPosts.module.css';
 import React, {ChangeEvent, LegacyRef, RefObject, useState} from "react";
 import {Post} from "./Post/Post";
-import state, {PostDataType} from "../../../redux/state";
+import state, {addNewPostAC, GeneralType, PostDataType, updatePostTextAC} from "../../../redux/state";
 
 type MyPostType = {
     postData: Array<PostDataType>
     postText: string
-    addPost: (message: string | undefined) => void
-    newPostText: (value: string) => void
+    dispatch: (action: GeneralType) => void
 }
 
 
@@ -16,14 +15,14 @@ export const MyPosts = (props: MyPostType) => {
     let newText: RefObject<HTMLTextAreaElement> = React.createRef()
 
     const addNewPost = () => {
-        props.addPost(newText.current?.value);
+        props.dispatch(addNewPostAC());
 
         // @ts-ignore
-        newText.current.value = '';
+        // newText.current.value = '';
     }
 
     const newPostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.newPostText(e.currentTarget.value);
+        props.dispatch(updatePostTextAC(e.currentTarget.value));
     }
 
     return (

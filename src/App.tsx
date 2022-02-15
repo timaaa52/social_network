@@ -4,13 +4,12 @@ import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
-import {Routes, Route} from "react-router-dom";
-import { StateType } from "./redux/state";
+import {Routes, Route, Navigate} from "react-router-dom";
+import {GeneralType, StateType} from "./redux/state";
 
 type AppPropsType = {
     state: StateType
-    addPost: (message: string | undefined) => void
-    newPostText: (value: string) => void
+    dispatch: (action: GeneralType) => void
 }
 
 
@@ -21,18 +20,14 @@ export function App(props: AppPropsType) {
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Routes>
-                    <Route path={'/'} element={<Profile
-                        profilePage={props.state.profilePage}
-                        addPost={props.addPost}
-                        newPostText={props.newPostText}
-                    />}/>
+                    <Route path={'/'} element={<Navigate to={'/profile'} />}/>
                     <Route path='/profile' element={<Profile
                         profilePage={props.state.profilePage}
-                        addPost={props.addPost}
-                        newPostText={props.newPostText}
+                        dispatch={props.dispatch}
                     />}/>
                     <Route path='/dialogs/*' element={<Dialogs
                         dialogData={props.state.messagesPage}
+                        dispatch={props.dispatch}
                     />}/>
                 </Routes>
             </div>
