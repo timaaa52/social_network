@@ -1,11 +1,6 @@
 import {v1} from "uuid";
-
-const ADD_NEW_POST = 'ADD-NEW-POST';
-const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT';
-
-
+import {addNewPostACType, profilePageReducer, UpdatePostTextACType} from "./reducers/profilePageReducer";
+import {AddMessageACType, dialogPageReducer, UpdateMessageTextACType} from "./reducers/dialogPageReducer";
 
 type MessagesDataType = {
     text: string
@@ -38,7 +33,7 @@ export type StoreType = {
     getState: () => StateType
     _callSubscriber: () => void
     subscriber: (observer: () => void) => void
-    dispatch: (action: GeneralType) => StateType
+    dispatch: (action: any) => void
 }
 
 const store: StoreType = {
@@ -69,6 +64,7 @@ const store: StoreType = {
             ],
             messageText: '',
         },
+
     },
     _callSubscriber(){
         console.log('render');
@@ -80,78 +76,18 @@ const store: StoreType = {
         this._callSubscriber = observer;
     },
     dispatch(action){
-        switch (action.type) {
-            case ADD_NEW_POST: {
-                let newPost = {
-                    id: v1(),
-                    title: this._state.profilePage.postText,
-                    likesCount: 0
-                }
-                this._state.profilePage.postData.push(newPost)
-                this._state.profilePage.postText = '';
-                this._callSubscriber();
-                return this._state
-            }
-            case UPDATE_POST_TEXT : {
-                this._state.profilePage.postText = action.payload.newText;
-                this._callSubscriber();
-                return this._state
-            }
-            case ADD_MESSAGE: {
-                let newMessage = {text: this._state.messagesPage.messageText};
-                this._state.messagesPage.messagesData.push(newMessage);
-                this._state.messagesPage.messageText = '';
-                this._callSubscriber();
-                return this._state
-            }
-            case UPDATE_MESSAGE_TEXT : {
-                this._state.messagesPage.messageText = action.payload.message;
-                this._callSubscriber();
-                return this._state
-            }
-
-            default:
-                return this._state
-        }
-    },
+        this._state.profilePage = profilePageReducer(this._state.profilePage, action);
+        this._state.messagesPage = dialogPageReducer(this._state.messagesPage, action);
+        this._callSubscriber();
+        },
 }
 
 export type GeneralType = addNewPostACType | UpdatePostTextACType | AddMessageACType | UpdateMessageTextACType
 
 
-type addNewPostACType = ReturnType<typeof addNewPostAC>
-export const addNewPostAC = () => {
-    return {
-        type: ADD_NEW_POST,
-    } as const
-}
 
-type UpdatePostTextACType = ReturnType<typeof updatePostTextAC>
-export const updatePostTextAC = (newText: string) => {
-    return {
-        type: UPDATE_POST_TEXT,
-        payload: {
-            newText
-        }
-    } as const
-}
 
-type UpdateMessageTextACType = ReturnType<typeof updateMessageTextAC>;
-export const updateMessageTextAC = (message: string) => {
-    return {
-        type: UPDATE_MESSAGE_TEXT,
-        payload: {
-            message
-        }
-    } as const
-}
 
-type AddMessageACType = ReturnType<typeof addMessageAC>;
-export const addMessageAC = () => {
-    return {
-        type: ADD_MESSAGE,
-    } as const
-}
 
 
 
