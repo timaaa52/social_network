@@ -1,11 +1,31 @@
 import {MessagesPageType} from "../state";
+import {v1} from "uuid";
 
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'
 
 
-export const dialogPageReducer = (state: MessagesPageType, action: GeneralType): MessagesPageType => {
+let initialState =  {
+    messagesData: [
+        {text: 'Hello'},
+        {text: 'Yo'},
+        {text: 'How are you'},
+        {text: 'Yo'},
+        {text: 'Yo'},
+    ],
+    dialogsData: [
+        {id: v1(), name: 'Dimych'},
+        {id: v1(), name: 'Vika'},
+        {id: v1(), name: 'Oleg'},
+        {id: v1(), name: 'Vitya'},
+        {id: v1(), name: 'Katya'},
+    ],
+    messageText: '',
+};
+
+
+export const dialogPageReducer = (state: MessagesPageType = initialState, action: GeneralType): MessagesPageType => {
     switch (action.type) {
         case ADD_MESSAGE: {
             let newMessage = {text: state.messageText};
