@@ -1,5 +1,5 @@
 import s from './MyPosts.module.css';
-import React, {ChangeEvent, RefObject} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import {Post} from "./Post/Post";
 import {ProfilePageType} from "../../../redux/state";
 import {addNewPostAC, updatePostTextAC} from "../../../redux/reducers/profilePageReducer";
@@ -18,7 +18,6 @@ export const MyPosts = (props: MyPostType) => {
 
     const addNewPost = () => {
         dispatch(addNewPostAC());
-
     }
 
     const newPostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -29,8 +28,8 @@ export const MyPosts = (props: MyPostType) => {
         <div>
             My posts
             <div>
-                <textarea onChange={newPostText} value={posts.postText}/>
-                <button onClick={addNewPost}>Add Post</button>
+                <textarea onChange={newPostText} value={posts.postText} />
+                <button onClick={addNewPost} onKeyPress={addNewPost}>Add Post</button>
             </div>
             {posts.postData.map(el => <Post key={el.id} title={el.title} likesCount={el.likesCount}/>)}
         </div>

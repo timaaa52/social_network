@@ -5,6 +5,7 @@ import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {Routes, Route, Navigate} from "react-router-dom";
+import {Users} from "./Components/Users/Users";
 
 type AppPropsType = {
 
@@ -20,7 +21,8 @@ export function App(props: AppPropsType) {
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/profile'} />}/>
                     <Route path='/profile' element={<Profile />}/>
-                    <Route path='/dialogs/*' element={<Dialogs />}/>
+                    <Route path='/dialogs' element={<Dialogs />}/>
+                    <Route path='/users' element={<Users />}/>
                 </Routes>
             </div>
         </div>
