@@ -26,7 +26,7 @@ const initialState: usersStateType = {
         {
             id: v1(),
             fullName: 'Dmitry',
-            avatar: '' ,
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' ,
             followed: false,
             status: 'I am boss',
             location: {city: 'Minsk', country: 'Belarus'}
@@ -34,7 +34,7 @@ const initialState: usersStateType = {
         {
             id: v1(),
             fullName: 'Vitya',
-            avatar: '' ,
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' ,
             followed: true,
             status: 'I am boss',
             location: {city: 'Kiev', country: 'Ukraine'}
@@ -42,7 +42,7 @@ const initialState: usersStateType = {
         {
             id: v1(),
             fullName: 'Katya',
-            avatar: '' ,
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' ,
             followed: false,
             status: 'I am boss',
             location: {city: 'Odessa', country: 'Ukraine'}
@@ -50,7 +50,7 @@ const initialState: usersStateType = {
         {
             id: v1(),
             fullName: 'Sonya',
-            avatar: '' ,
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' ,
             followed: true,
             status: 'I am boss',
             location: {city: 'Warshaw', country: 'Poland'}

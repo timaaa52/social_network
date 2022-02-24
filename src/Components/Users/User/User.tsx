@@ -3,6 +3,7 @@ import React from 'react';
 
 type UserPropsType = {
     avatar: string
+    id: string
     followed: boolean
     fullName: string
     status: string
@@ -10,17 +11,16 @@ type UserPropsType = {
         city: string
         country: string
     }
+    callback: (id: string) => void
 
 }
 
 export const User = (props: UserPropsType) => {
-    return (
-        <div>
-            <div>
+    return  <div>
                 <div>
-                    <img src={props.avatar} alt="avatar"/>
+                    <img style={{ width: '50px', height: '50px', borderRadius: '30px' }} src={props.avatar} alt="avatar"/>
                 </div>
-                <button>{props.followed}</button>
+                <button onClick={() => props.callback(props.id)}>{props.followed ? 'Followed' : 'Unfollowed'}</button>
                 <span>
                     <div>{props.fullName}</div>
                     <div>{props.status}</div>
@@ -33,7 +33,5 @@ export const User = (props: UserPropsType) => {
                         {props.location.country}
                     </div>
                 </span>
-            </div>
         </div>
-    );
 };
