@@ -19,10 +19,8 @@ export const Users = (props: UsersPropsType) => {
 
     return (
         <div>
-            Users will be here
-            {users.map(u => { return <User key={u.id} id={u.id} followed={u.followed} fullName={u.fullName} status={u.status} location={u.location}
-                      avatar={u.avatar} callback={u.followed ? onClickUnFollowedHandler : onClickFollowedHandler}/>
-            })}
+            {users.map(u => <User key={u.id} id={u.id} followed={u.followed} fullName={u.fullName} status={u.status} location={u.location}
+                      avatar={u.avatar} callback={u.followed ? onClickUnFollowedHandler : onClickFollowedHandler}/>) }
         </div>
     );
 };
