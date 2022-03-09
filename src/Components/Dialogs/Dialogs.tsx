@@ -26,10 +26,10 @@ export const Dialogs = (props: DialogsPropsType) => {
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>
-          {dialogs.dialogsData.map(el => <DialogsItem name={el.name} id={el.id}/>)}
+          {dialogs.dialogsData.map((el, i) => <DialogsItem key={i-1} name={el.name} id={el.id}/>)}
       </div>
       <div className={s.messages}>
-          {dialogs.messagesData.map(el => <MessageItem message={el.text}/>)}
+          {dialogs.messagesData.map((el,i) => <MessageItem key={i-1} message={el.text}/>)}
           <textarea onChange={changeMessageTextHandler} value={dialogs.messageText} placeholder={'Enter your message'}/>
           <button onClick={sendMessageHandler}>Send</button>
       </div>
