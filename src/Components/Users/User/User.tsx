@@ -17,6 +17,7 @@ type UserPropsType = {
 
 export const User = (props: UserPropsType) => {
     return <div style={{display: 'flex'}}>
+
                 <div style={{width: '400px', minHeight: '100px', border: '1px solid', margin: '5px'}}>
                     <div>
                         <img style={{width: '50px', height: '50px', borderRadius: '30px'}} src={props.avatar ? props.avatar : icon} alt="avatar"/>

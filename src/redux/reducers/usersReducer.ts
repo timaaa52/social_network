@@ -1,9 +1,11 @@
-import {v1} from "uuid";
 
-
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
+export enum ActionsOfUserReducer {
+    FOLLOW = 'FOLLOW',
+    UNFOLLOW = 'UNFOLLOW',
+    SET_USERS = 'SET_USERS',
+    SET_USERS_COUNT = 'SET_USERS_COUNT',
+    SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+}
 
  export type userType = Array<{
     id: number
@@ -14,70 +16,20 @@ const SET_USERS = 'SET_USERS';
     name: string
     followed: boolean
     status: string
-    // location: {
-    //     city: string
-    //     country: string
-    // }
 }>
 
 export type usersStateType = {
     users: userType
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
 }
 
-// export type userType = {
-//     name: string
-//     id: number
-//     photos: {
-//         small: null | string
-//         large: null | string
-//     }
-//     status: null | string
-//     followed: boolean
-// }
-
-// const axios = require('axios');
-
-// const user = axios.get('https://social-network.samuraijs.com/api/1.0/users')
-//     .then( (response: userType) =>  response.data.items)
-//     .catch( (error: any) => console.log(error) )
-
 const initialState: usersStateType = {
-    // users: [
-    //     {
-    //         id: v1(),
-    //         fullName: 'Dmitry',
-    //         avatar: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' ,
-    //         followed: false,
-    //         status: 'I am boss',
-    //         location: {city: 'Minsk', country: 'Belarus'}
-    //     },
-    //     {
-    //         id: v1(),
-    //         fullName: 'Vitya',
-    //         avatar: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' ,
-    //         followed: true,
-    //         status: 'I am boss',
-    //         location: {city: 'Kiev', country: 'Ukraine'}
-    //     },
-    //     {
-    //         id: v1(),
-    //         fullName: 'Katya',
-    //         avatar: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' ,
-    //         followed: false,
-    //         status: 'I am boss',
-    //         location: {city: 'Odessa', country: 'Ukraine'}
-    //     },
-    //     {
-    //         id: v1(),
-    //         fullName: 'Sonya',
-    //         avatar: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' ,
-    //         followed: true,
-    //         status: 'I am boss',
-    //         location: {city: 'Warshaw', country: 'Poland'}
-    //     },
-    // ],
-    // users: user
     users: [],
+    pageSize: 10,
+    totalUserCount: 0,
+    currentPage: 1
 }
 
 export const usersReducer = (state: usersStateType = initialState, action: GeneralType): usersStateType => {
@@ -89,19 +41,35 @@ export const usersReducer = (state: usersStateType = initialState, action: Gener
             return {...state, users: state.users.map(u => u.id === action.payload.id ? {...u, followed: false} : u)}
         }
         case "SET_USERS": {
-            return {...state, users: [...state.users, ...action.payload.users]}
+            return {...state, users: [...action.payload.users]}
+        }
+        case 'SET_USERS_COUNT': {
+            return {...state, totalUserCount: action.payload.count}
+        }
+        case 'SET_CURRENT_PAGE': {
+            return {...state, currentPage: action.patload.page}
         }
         default:
             return state;
     }
 }
 
-export type GeneralType = followACType | unFollowACType | setUsersACType;
+export type GeneralType = followACType | unFollowACType | setUsersACType | setUsersCountACType | setCurrentPageACType;
+
+export type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
+export const setCurrentPageAC = (page: number) => {
+    return {
+        type: ActionsOfUserReducer.SET_CURRENT_PAGE,
+        patload: {
+            page,
+        }
+    }as const
+}
 
 type followACType = ReturnType<typeof followAC>;
 export const followAC = (userId: number) => {
     return {
-        type: FOLLOW,
+        type: ActionsOfUserReducer.FOLLOW,
         payload: {
             id: userId,
         }
@@ -111,7 +79,7 @@ export const followAC = (userId: number) => {
 type unFollowACType = ReturnType<typeof unFollowAC>;
 export const unFollowAC = (userId: number) => {
     return {
-        type: UNFOLLOW,
+        type: ActionsOfUserReducer.UNFOLLOW,
         payload: {
             id: userId,
         }
@@ -121,9 +89,19 @@ export const unFollowAC = (userId: number) => {
 type setUsersACType = ReturnType<typeof setUsersAC>;
 export const setUsersAC = (users: userType) => {
     return {
-        type: SET_USERS,
+        type: ActionsOfUserReducer.SET_USERS,
         payload: {
             users,
+        }
+    }as const
+}
+
+type setUsersCountACType = ReturnType<typeof setUsersCountAC>;
+export const setUsersCountAC = (count: number) => {
+    return {
+        type: ActionsOfUserReducer.SET_USERS_COUNT,
+        payload: {
+            count,
         }
     }as const
 }
