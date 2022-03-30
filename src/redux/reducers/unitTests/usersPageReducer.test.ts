@@ -80,5 +80,3 @@ test('currentPage should be correct changed', () => {
     expect(endState.currentPage).toBe(34);
     expect(endState.pageSize).toBe(10);
 })
-
-export default 1
