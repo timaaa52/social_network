@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import s from './Users.module.css'
 import {rootReducerType} from "../../redux/store";
-import { followAC, setCurrentPageAC,  setUsersAC, setUsersCountAC, unFollowAC, usersStateType, userType } from "../../redux/reducers/usersReducer";
+import { followAC, setCurrentPageAC,  setUsersAC, setUsersCountAC, unFollowAC, usersStateType, userType } from "../../redux/reducers/usersPageReducer";
 import {User} from "./User/User";
 import axios from 'axios'
 import {Dispatch} from "redux";

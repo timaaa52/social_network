@@ -32,7 +32,7 @@ const initialState: usersStateType = {
     currentPage: 1
 }
 
-export const usersReducer = (state: usersStateType = initialState, action: GeneralType): usersStateType => {
+export const usersPageReducer = (state: usersStateType = initialState, action: GeneralType): usersStateType => {
     switch (action.type) {
         case "FOLLOW": {
             return {...state, users: state.users.map(u => u.id === action.payload.id ? {...u, followed: true} : u)}
