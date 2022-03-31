@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import icon from "../../../icons/avatar-icon.png";
+import icon from "../../../assets/icons/avatar-icon.png";
 
 type UserClassPropsType = {
     id: number

@@ -1,13 +1,13 @@
-
 export enum ActionsOfUserReducer {
     FOLLOW = 'FOLLOW',
     UNFOLLOW = 'UNFOLLOW',
     SET_USERS = 'SET_USERS',
     SET_USERS_COUNT = 'SET_USERS_COUNT',
-    SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+    SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
+    SET_IS_FETCHING = 'SET_IS_FETCHING'
 }
 
- export type userType = Array<{
+export type userType = Array<{
     id: number
     photos: {
         small: null | string
@@ -23,13 +23,15 @@ export type usersStateType = {
     pageSize: number
     totalUserCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 const initialState: usersStateType = {
     users: [],
     pageSize: 10,
     totalUserCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: true
 }
 
 export const usersPageReducer = (state: usersStateType = initialState, action: GeneralType): usersStateType => {
@@ -49,12 +51,25 @@ export const usersPageReducer = (state: usersStateType = initialState, action: G
         case 'SET_CURRENT_PAGE': {
             return {...state, currentPage: action.patload.page}
         }
+        case ActionsOfUserReducer.SET_IS_FETCHING: {
+            return {...state, isFetching: action.payload.fetch}
+        }
         default:
             return state;
     }
 }
 
-export type GeneralType = followACType | unFollowACType | setUsersACType | setUsersCountACType | setCurrentPageACType;
+export type GeneralType = followACType | unFollowACType | setUsersACType | setUsersCountACType | setCurrentPageACType | setIsFetchingACType;
+
+export type setIsFetchingACType = ReturnType<typeof setIsFetchingAC>;
+export const setIsFetchingAC = (fetch: boolean) => {
+    return {
+        type: ActionsOfUserReducer.SET_IS_FETCHING,
+        payload: {
+            fetch
+        }
+    }as const
+}
 
 export type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 export const setCurrentPageAC = (page: number) => {
@@ -63,7 +78,7 @@ export const setCurrentPageAC = (page: number) => {
         patload: {
             page,
         }
-    }as const
+    } as const
 }
 
 type followACType = ReturnType<typeof followAC>;
@@ -93,7 +108,7 @@ export const setUsersAC = (users: userType) => {
         payload: {
             users,
         }
-    }as const
+    } as const
 }
 
 type setUsersCountACType = ReturnType<typeof setUsersCountAC>;
@@ -103,5 +118,5 @@ export const setUsersCountAC = (count: number) => {
         payload: {
             count,
         }
-    }as const
+    } as const
 }
