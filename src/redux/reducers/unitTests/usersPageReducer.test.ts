@@ -1,6 +1,6 @@
 import {
     followAC,
-    setCurrentPageAC,
+    setCurrentPageAC, setIsFetchingAC,
     setUsersAC,
     setUsersCountAC,
     usersPageReducer,
@@ -17,7 +17,8 @@ test('user status should be correctly changed', () => {
         ],
         pageSize: 10,
         totalUserCount: 0,
-        currentPage: 1
+        currentPage: 1,
+        isFetching: true
     };
 
     const action = followAC(2);
@@ -35,7 +36,8 @@ test('users can be should correctly added', () => {
         users: [],
         pageSize: 10,
         totalUserCount: 0,
-        currentPage: 1
+        currentPage: 1,
+        isFetching: true
     };
 
     const action = setUsersAC( [{id: 1, name: 'Andrey', followed: false, photos: {small: null, large: null}, status: 'i am ok'},
@@ -54,7 +56,8 @@ test('userCount should be correct changed', () => {
         users: [],
         pageSize: 10,
         totalUserCount: 0,
-        currentPage: 1
+        currentPage: 1,
+        isFetching: true
     };
 
     const action = setUsersCountAC(25);
@@ -70,7 +73,8 @@ test('currentPage should be correct changed', () => {
         users: [],
         pageSize: 10,
         totalUserCount: 0,
-        currentPage: 1
+        currentPage: 1,
+        isFetching: true
     };
 
     const action = setCurrentPageAC(34);
@@ -79,4 +83,21 @@ test('currentPage should be correct changed', () => {
 
     expect(endState.currentPage).toBe(34);
     expect(endState.pageSize).toBe(10);
+});
+
+test('isFetching should be correct changed', () => {
+    const startState: usersStateType = {
+        users: [],
+        pageSize: 10,
+        totalUserCount: 0,
+        currentPage: 1,
+        isFetching: true
+    };
+
+    const action = setIsFetchingAC(false);
+
+    const endState = usersPageReducer(startState, action);
+
+    expect(endState.isFetching).toBe(false)
+    expect(endState.pageSize).toBe(10)
 })
