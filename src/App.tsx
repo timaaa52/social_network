@@ -6,6 +6,7 @@ import {Profile} from "./Components/Profile/Profile";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {Route, Switch} from "react-router-dom";
 import {UsersContainer} from "./Components/Users/UsersContainer";
+import {LoginContainer} from "./Components/Login/LoginContainer";
 
 type AppPropsType = {
 
@@ -23,6 +24,7 @@ export function App(props: AppPropsType) {
                     <Route path='/profile/:userId?' component={Profile}/>
                     <Route path='/dialogs' component={Dialogs}/>
                     <Route path='/users' component={UsersContainer}/>
+                    <Route path='/login' component={LoginContainer} />
                     <Route path='/' component={Profile} />
                 </Switch>
             </div>
