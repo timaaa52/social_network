@@ -7,6 +7,7 @@ import axios from "axios";
 import {setUserProfileAC} from "../../redux/reducers/profilePageReducer";
 import {useDispatch} from "react-redux";
 import {Dispatch} from "redux";
+import {profileAPI} from "../../api/profile-API";
 
 type ProfilePropsType = {
 }
@@ -17,8 +18,8 @@ export const Profile = (props: any) => {
 
     useEffect(() => {
         let userId = props.match.params.userId;
-        if (!userId) userId = '2';
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+        if (!userId) userId = '22606';
+        profileAPI.getUserProfile(userId)
             .then((res) => {
                 dispatch(setUserProfileAC(res.data))
             })

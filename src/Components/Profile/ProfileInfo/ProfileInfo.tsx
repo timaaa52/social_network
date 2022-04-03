@@ -25,7 +25,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
             {userProfile &&
                 <img style={userProfile.photos.small === null ? styleImg : {}}
                      src={userProfile.photos.large === null ? icon : userProfile.photos.large}
-                     alt=""
+                     alt="avatar"
                 />
             }
         </div>

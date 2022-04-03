@@ -16,6 +16,7 @@ import {User} from './User/User';
 import axios from 'axios'
 import {Dispatch} from 'redux';
 import {Preloader} from "../Preloader/Preloader";
+import {usersAPI} from "../../api/users-API";
 
 type UsersPropsType = {}
 
@@ -38,7 +39,9 @@ export const UsersContainer = (props: UsersPropsType) => {
     const pageClickHandler = (page: number) => {
         dispatch(setCurrentPageAC(page));
         dispatch(setIsFetchingAC(true))
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${pageSize}`, {
+            withCredentials: true
+        })
             .then(res => {
                 dispatch(setUsersAC(res.data.items))
                 dispatch(setIsFetchingAC(false))
@@ -46,14 +49,22 @@ export const UsersContainer = (props: UsersPropsType) => {
     }
 
     const onClickFollowedHandler = (id: number) => {
-        dispatch(followAC(id))
+        usersAPI.followUser(id)
+            .then(res => {
+                res.data.resultCode === 0 ? dispatch(followAC(id)) : alert(res.data.messages[0])
+            })
+
     }
     const onClickUnFollowedHandler = (id: number) => {
-        dispatch(unFollowAC(id));
+        usersAPI.unFollowUser(id)
+            .then(res => {
+                res.data.resultCode === 0 ? dispatch(unFollowAC(id)) : alert(res.data.messages[0])
+            })
+        ;
     }
 
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
+        usersAPI.getUsers(currentPage, pageSize)
             .then(res => {
                 dispatch(setIsFetchingAC(false))
                 dispatch(setUsersAC(res.data.items))
