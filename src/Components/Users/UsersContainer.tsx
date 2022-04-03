@@ -15,7 +15,7 @@ import {
 import {User} from './User/User';
 import axios from 'axios'
 import {Dispatch} from 'redux';
-import preloader from './../../assets/LoadingSpinner.gif'
+import {Preloader} from "../Preloader/Preloader";
 
 type UsersPropsType = {}
 
@@ -53,13 +53,13 @@ export const UsersContainer = (props: UsersPropsType) => {
     }
 
     useEffect(() => {
-        setTimeout(() => {axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then(res => {
                 dispatch(setIsFetchingAC(false))
                 dispatch(setUsersAC(res.data.items))
                 dispatch(setUsersCountAC(res.data.totalCount))
             })
-            .catch(e => alert(e.toString()))}, 3000)
+            .catch(e => alert(e.toString()))
     }, [])
 
 
@@ -67,12 +67,13 @@ export const UsersContainer = (props: UsersPropsType) => {
         <div>
             {
                 isFetching
-                    ? <div><img src={preloader} alt="loading"/></div>
+                    ? <Preloader />
                     : <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
                         {users.map((u) => <User key={u.id + Math.random()} id={u.id} followed={u.followed} fullName={u.name}
                                                 status={u.status}
                                                 avatar={u.photos.small}
-                                                callback={u.followed ? onClickUnFollowedHandler : onClickFollowedHandler}/>)}
+                                                callback={u.followed ? onClickUnFollowedHandler : onClickFollowedHandler}
+                        />)}
 
                     </div>
             }

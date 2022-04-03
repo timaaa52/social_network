@@ -1,5 +1,10 @@
 import {v1} from "uuid";
-import {addNewPostACType, profilePageReducer, UpdatePostTextACType} from "./reducers/profilePageReducer";
+import {
+    addNewPostACType,
+    profilePageReducer,
+    ProfilePageType,
+    UpdatePostTextACType
+} from "./reducers/profilePageReducer";
 import {AddMessageACType, dialogPageReducer, UpdateMessageTextACType} from "./reducers/dialogPageReducer";
 
 type MessagesDataType = {
@@ -9,16 +14,7 @@ type DialogsDataType = {
     id: string
     name: string
 }
-export type PostDataType = {
-    id: string
-    title: string | undefined
-    likesCount: number
-}
-export type ProfilePageType = {
-    postData: Array<PostDataType>
-    postText: string
 
-}
 export type MessagesPageType = {
     messagesData: Array<MessagesDataType>
     dialogsData: Array<DialogsDataType>
@@ -46,6 +42,7 @@ const store: StoreType = {
                 {id: v1(), title: 'Hello my friends', likesCount: 10},
             ],
             postText: '',
+            userProfile: null,
         },
         messagesPage: {
             messagesData: [

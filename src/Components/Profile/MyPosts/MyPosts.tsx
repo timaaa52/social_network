@@ -1,10 +1,9 @@
 import s from './MyPosts.module.css';
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import {Post} from "./Post/Post";
-import {ProfilePageType} from "../../../redux/state";
-import {addNewPostAC, updatePostTextAC} from "../../../redux/reducers/profilePageReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType} from "../../../redux/store";
+import {addNewPostAC, ProfilePageType, updatePostTextAC} from "../../../redux/reducers/profilePageReducer";
 
 type MyPostType = {
 
