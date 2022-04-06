@@ -23,7 +23,15 @@ export const User = (props: UserPropsType) => {
                     </NavLink>
                 </div>
                 <button
-                    onClick={() => props.callback(props.id)}>{props.followed ? 'Unfollow' : 'Follow'}</button>
+                    onClick={() => props.callback(props.id)}
+                    disabled={props.followed}
+                >Follow</button>
+                <button
+                onClick={() => props.callback(props.id)}
+                disabled={!props.followed}
+                >
+                    Unfollow
+                </button>
                 <span>
                     <div>{props.fullName}</div>
                     <div>{props.status}</div>
